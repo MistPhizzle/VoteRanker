@@ -1,0 +1,34 @@
+VIP1:
+  votes: 3
+  ignoreif:
+  - VIP2
+  - VIP3
+  - VIP4
+  - VIP5
+  commands:
+  - manuadd %player vip1
+VIP2:
+  votes: 9
+  ignoreif:
+  - VIP3
+  - VIP4
+  - VIP5
+  commands:
+  - manuadd %player vip2
+VIP3:
+  votes: 30
+  ignoreif:
+  - VIP4
+  - VIP5
+  commands:
+  - manuadd %player vip3
+VIP4:
+  votes: 65
+  ignoreif:
+  - VIP5
+  - manuadd %player vip4
+VIP5:
+  votes: 120
+  ignoreif: []
+  commands:
+  - manuadd %player vip5
