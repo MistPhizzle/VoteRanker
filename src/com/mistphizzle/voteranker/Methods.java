@@ -49,8 +49,8 @@ public class Methods {
 	
 	public static void addVote(UUID uuid) {
 		if (!isInTable(uuid)) addToTable(uuid);
-		int votes = getVotes(uuid);
-		DBConnection.sql.modifyQuery("UPDATE voters SET votes = " + votes + 1 + " WHERE uuid = '" + uuid.toString() + "'");
+		int votes = getVotes(uuid) + 1;
+		DBConnection.sql.modifyQuery("UPDATE voters SET votes = " + votes + " WHERE uuid = '" + uuid.toString() + "'");
 	}
 	
 	public static void checkVote(UUID uuid) {

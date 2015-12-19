@@ -12,6 +12,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
+import com.vexsoftware.votifier.model.Vote;
+import com.vexsoftware.votifier.model.VotifierEvent;
+
 public class VoteCommand {
 
 	static VoteRanker plugin;
@@ -28,16 +31,37 @@ public class VoteCommand {
 		exe = new CommandExecutor() {
 			@Override
 			public boolean onCommand(CommandSender s, Command c, String label, String[] args) {
-				if (args.length == 0) {
+				if (args.length > 1) {
 					s.sendMessage(ChatColor.RED + "Proper Usage: /vr [Player]");
 					return true;
+				}
+				if (args[0].equalsIgnoreCase("reload")) {
+					if (!s.hasPermission("voteranker.reload")) {
+						s.sendMessage(ChatColor.RED + "You don't have permission to do that.");
+						return true;
+					}
+					
+					plugin.reloadConfig();
+					s.sendMessage(ChatColor.GREEN + "Config reloaded.");
+				}
+				if (args.length == 1) {
+					if (!s.hasPermission("voteranker.check.others")) {
+						s.sendMessage(ChatColor.RED + "You don't have permission to do that.");
+						return true;
+					}
 				}
 				if (!s.hasPermission("voteranker.check")) {
 					s.sendMessage(ChatColor.RED + "You don't have permission to do that.");
 					return true;
 				}
 				
-				String playerName = args[0];
+				String playerName = null;
+				if (args.length == 0) {
+					playerName = s.getName();
+				} else {
+					playerName = args[0];
+				}
+				
 				
 				OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
 				if (player == null) {

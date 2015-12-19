@@ -21,11 +21,13 @@ public class VoteRanker extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new VoteListener(this), this);
 		
 		getConfig().options().copyDefaults(true);
+		saveConfig();
 		
 		if (getServer().getPluginManager().getPlugin("Vault") != null) {
 			setupPermissions();
 		}
 		
+		new VoteCommand(this);
 		new Methods(this);
 		DBConnection.init();
 	}
