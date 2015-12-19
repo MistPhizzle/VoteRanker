@@ -42,6 +42,7 @@ public class VoteListener implements Listener {
 		if (!Methods.isInTable(uuid)) Methods.addToTable(uuid);
 		
 		Methods.addVote(uuid);
+		Methods.checkVote(uuid);
 		
 	}
 }

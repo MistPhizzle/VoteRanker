@@ -35,33 +35,32 @@ public class VoteCommand {
 					s.sendMessage(ChatColor.RED + "Proper Usage: /vr [Player]");
 					return true;
 				}
-				if (args[0].equalsIgnoreCase("reload")) {
-					if (!s.hasPermission("voteranker.reload")) {
-						s.sendMessage(ChatColor.RED + "You don't have permission to do that.");
-						return true;
-					}
-					
-					plugin.reloadConfig();
-					s.sendMessage(ChatColor.GREEN + "Config reloaded.");
-				}
+				String playerName = null;
 				if (args.length == 1) {
-					if (!s.hasPermission("voteranker.check.others")) {
-						s.sendMessage(ChatColor.RED + "You don't have permission to do that.");
+					if (args[0].equalsIgnoreCase("reload")) {
+						if (!s.hasPermission("voteranker.reload")) {
+							s.sendMessage(ChatColor.RED + "You don't have permission to do that.");
+							return true;
+						}
+						
+						plugin.reloadConfig();
+						s.sendMessage(ChatColor.GREEN + "Config reloaded.");
 						return true;
+					} else {
+						if (!s.hasPermission("voteranker.check.others")) {
+							s.sendMessage(ChatColor.RED + "You don't have permission to do that.");
+							return true;
+						}
+						playerName = args[0];
 					}
+				} else {
+					playerName = s.getName();
 				}
+				
 				if (!s.hasPermission("voteranker.check")) {
 					s.sendMessage(ChatColor.RED + "You don't have permission to do that.");
 					return true;
 				}
-				
-				String playerName = null;
-				if (args.length == 0) {
-					playerName = s.getName();
-				} else {
-					playerName = args[0];
-				}
-				
 				
 				OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
 				if (player == null) {

@@ -68,7 +68,7 @@ public class Methods {
 				}
 				List<String> commands = plugin.getConfig().getStringList(rank + ".commands");
 				for (String command: commands) {
-					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command.replace("%player", player.getName()));
+					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command.replace("%player", player.getName()).replace("%uuid", player.getUniqueId().toString()));
 				}
 			}
 		}
